@@ -1,0 +1,7 @@
+[package]
+name = "monte"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+stochastic-gbm = "0.1.0"
