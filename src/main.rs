@@ -137,6 +137,21 @@ fn estimate_sigma_from_day(day_bars: &[Bar]) -> f64 {
     sigma.clamp(0.005, 0.05) // ~0.5%..5% daily
 }
 
+// Compute **day-specific drift μ** from open→close log return, clamp to ±5%/day.
+fn estimate_mu_from_day(day_bars: &[Bar]) -> f64 {
+    if day_bars.is_empty() {
+        return 0.0;
+    }
+    let s0 = day_bars.first().unwrap().close;
+    let s1 = day_bars.last().unwrap().close;
+    if s0 <= 0.0 || !s0.is_finite() || !s1.is_finite() {
+        return 0.0;
+    }
+    let mu = (s1 / s0).ln(); // log-return from first RTH close to last RTH close
+    mu.clamp(-0.05, 0.05)    // cap to ±5% per day for sanity
+}
+
+
 // --------------------------- Cost schedule (DOLLAR units) ---------------------------
 
 fn compute_cost_schedule(bars: &[Bar], cap_dollars: f64) -> Vec<f64> {
@@ -228,6 +243,8 @@ fn best_time_index(avg_effective: &[f64]) -> (usize, f64) {
         .unwrap_or((0, f64::NAN))
 }
 
+
+
 // --------------------------- Main ---------------------------
 
 fn main() -> csv::Result<()> {
@@ -292,7 +309,7 @@ fn main() -> csv::Result<()> {
         let n_steps = costs_len;
 
         let sigma = estimate_sigma_from_day(&day_bars);
-        let mu = 0.0; // *** NO DRIFT for this experiment ***
+        let mu = estimate_mu_from_day(&day_bars); // *** NO DRIFT for this experiment ***
         let s0 = day_bars[0].close;
 
         // Monte Carlo: simulate n_paths_total paths with n_steps steps
