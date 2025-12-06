@@ -340,15 +340,15 @@ fn main() -> csv::Result<()> {
             .timestamp_millis_opt(ts_min as i64)
             .single()
             .unwrap();
-        eprintln!(
-            "DEBUG {}-{:02}-{:02} min_cost @ {} idx={} cost={:.4}",
-            day.year,
-            day.month,
-            day.day,
-            dt_ny_min.format("%H:%M"),
-            min_cost_idx,
-            min_cost_val
-        );
+        // eprintln!(
+        //     "DEBUG {}-{:02}-{:02} min_cost @ {} idx={} cost={:.4}",
+        //     day.year,
+        //     day.month,
+        //     day.day,
+        //     dt_ny_min.format("%H:%M"),
+        //     min_cost_idx,
+        //     min_cost_val
+        // );
 
         let n_steps = costs_len;
         let sigma = estimate_sigma_from_day(&minute);
@@ -385,25 +385,25 @@ fn main() -> csv::Result<()> {
             .single()
             .unwrap();
 
-        println!(
-            "{:04}-{:02}-{:02}, {}, {}, {:.4}",
-            day.year,
-            day.month,
-            day.day,
-            best_dt_ny.format("%H:%M"),
-            best_idx,
-            best_cost
-        );
+        // println!(
+        //     "{:04}-{:02}-{:02}, {}, {}, {:.4}",
+        //     day.year,
+        //     day.month,
+        //     day.day,
+        //     best_dt_ny.format("%H:%M"),
+        //     best_idx,
+        //     best_cost
+        // );
         
         processed_days += 1;
 
       
-        eprintln!(
-            "Processed days: {}  (skipped: {})  total time: {:.3?}",
-            processed_days,
-            skipped_days,
-            current_time.elapsed()
-        );
+        // eprintln!(
+        //     "Processed days: {}  (skipped: {})  total time: {:.3?}",
+        //     processed_days,
+        //     skipped_days,
+        //     current_time.elapsed()
+        // );
 
     }
     Ok(())
