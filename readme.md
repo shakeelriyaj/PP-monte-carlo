@@ -92,6 +92,7 @@ Parallelizing reduces runtime by ~5× across both small and large datasets.
 
 ## Build & Run
 
+  ```rust
 cargo build --release
 
 ./target/release/monte spy1day.csv
@@ -100,5 +101,7 @@ rm -f times.txt
 for i in {1..10}; do
   /usr/bin/time -f "%e" ./target/release/monte spy1day.csv 2>> times.txt
 done
+
 awk '{sum+=$1} END {print "Average:", sum/NR}' times.txt
+```
 
