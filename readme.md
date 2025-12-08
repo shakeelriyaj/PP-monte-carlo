@@ -6,7 +6,7 @@ This project identifies the **best time of day to execute a trade** in SPY using
 
 ## Overview
 
-Executing a large trade intraday involves both **price risk** and **execution cost**, which vary throughout the trading session. Using over 800 days of historical SPY minute bars, this project:
+Executing a large trade intraday involves both **price risk** and **execution cost**, which vary throughout the trading session. Using 1173 days of historical SPY minute bars, this project:
 
 - Estimates drift (μ) and volatility (σ) from intraday log returns  
 - Builds a smoothed execution cost curve based on market conditions  
