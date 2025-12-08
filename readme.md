@@ -98,6 +98,7 @@ cargo build --release
 ./target/release/monte spy1day.csv
 
 rm -f times.txt
+
 for i in {1..10}; do
   /usr/bin/time -f "%e" ./target/release/monte spy1day.csv 2>> times.txt
 done
